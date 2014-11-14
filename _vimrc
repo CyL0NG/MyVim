@@ -176,7 +176,7 @@ imap <C-l> <Plug>(neocomplcache_snippets_force_jump)
 smap <C-l> <Plug>(neocomplcache_snippets_force_jump)
 "按特殊字符对其， 需要修改源码以支持中文字符 https://github.com/muzuiget/hacking-patches/blob/maste/tabula_cjk_width.patch
 "statuslines 增强
-Plugin 'scooloose/vim-statline'
+Plugin 'scrooloose/vim-statline'
 "自动补全
 filetype plugin indent on
 set completeopt=longest,menu

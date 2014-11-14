@@ -102,7 +102,7 @@ Plugin 'tabular'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
-let g:session_autoload='no'
+let g:session_autoload='yes'
 let g:session_autosave='no'
 "实现C/C++语言自动补全
 Plugin 'OmniCppComplete'

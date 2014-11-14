@@ -21,7 +21,7 @@ MyVim
 16. Shougo/neosnippet
 17. scrooloose/vim-statline
 18. minibufexplorerpp
->> Run PluginInstall to install these plugins.
+> Run PluginInstall to install these plugins.
 
 ###Use gvimfullscreen.dll to control transparency.
 

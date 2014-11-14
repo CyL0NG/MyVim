@@ -99,11 +99,11 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mattn/emmet-vim'
 Plugin 'MatchTag'
 Plugin 'tabular'
-Plugin 'vim-scripts/qiushibaike'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
-let g:session_autosave = 'no'
+let g:session_autoload='no'
+let g:session_autosave='no'
 "实现C/C++语言自动补全
 Plugin 'OmniCppComplete'
 " build tags of your own project with CTRL+F12
@@ -128,7 +128,7 @@ Plugin 'The-NERD-Commenter'
 "由注释生成文档，并且能够快速生成函数标准注释
 Plugin 'DoxygenToolkit.vim'
 map fg : Dox<cr>
-let g:DoxygenToolkit_authorName="Xiaoyang Zhu"
+let g:DoxygenToolkit_authorName="cylong"
 let g:DoxygenToolkit_licenseTag="My own license\<enter>"
 let g:DoxygenToolkit_undocTag="DOXIGEN_SKIP_BLOCK"
 let g:DoxygenToolkit_briefTag_pre = "@brief\t"
@@ -207,8 +207,6 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 " AutoComplPop like behavior.
 let g:neocomplcache_enable_auto_select = 1
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " 编辑模式进行光标移动
 inoremap <C-h> <left>

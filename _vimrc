@@ -82,6 +82,8 @@ set mouse=a
 "解决consle输出乱码"
 language messages zh_CN.utf-8
 "针对不同的文件采用不同的缩进方式
+filetype indent on
+let g:pydiction_location='$vim/vim74/ftplugin/python_pydiction'
 filetype plugin indent on
 set completeopt=longest,menu
 "自动补全命令时候使用菜单式匹配列表  
@@ -93,6 +95,7 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType java set omnifunc=javacomplete#Complet
+
 "mm : 规范行首空格<cr>去除多余字符<cr>删除空白行<cr>规范行数
 nmap mm :%s/\r//g<cr>
 "ff : 前后补全

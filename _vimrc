@@ -82,8 +82,22 @@ set mouse=a
 "解决consle输出乱码"
 language messages zh_CN.utf-8
 "针对不同的文件采用不同的缩进方式
-filetype indent on
-
+filetype plugin indent on
+set completeopt=longest,menu
+"自动补全命令时候使用菜单式匹配列表  
+set wildmenu
+autocmd FileType uby,euby set omnifunc=ubycomplete#Complete
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascipt set omnifunc=javasciptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType java set omnifunc=javacomplete#Complet
+"mm : 规范行首空格<cr>去除多余字符<cr>删除空白行<cr>规范行数
+nmap mm :%s/\r//g<cr>
+"ff : 前后补全
+"vmap ff <Esc>`>i')?><Esc>`<i<?=$this->_('<Esc>
+vmap ff "zdi<?=$this->_('<C-R>z');?><ESC>
 "==============插件配置=============
 "允许插件
 filetype plugin on
@@ -91,6 +105,7 @@ filetype plugin on
 filetype on
 set rtp+=$vim/vimfiles/bundle/vundle/
 call vundle#rc('$vim/vimfiles/bundle')
+
 "使用Vundle来管理Vundle
 Plugin 'gmarik/vundle'
 Plugin 'JavaScript-syntax'
@@ -101,10 +116,18 @@ Plugin 'MatchTag'
 Plugin 'tabular'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'xolox/vim-misc'
+"注释插件
+Plugin 'The-NERD-Commenter'
+Plugin 'scrooloose/vim-statline'
+
+"{plugin vim session and its configuration
 Plugin 'xolox/vim-session'
-let g:session_autoload='no'
-let g:session_autosave='no'
-"实现C/C++语言自动补全
+let g:session_autoload='yes'
+let g:session_autosave='yes'
+"}
+
+"{ plugin omnicppcomplete and its configuration
+"func: 实现C/C++语言自动补全
 Plugin 'OmniCppComplete'
 " build tags of your own project with CTRL+F12
 set tags=tags;
@@ -119,23 +142,23 @@ let OmniCpp_MayCompleteDot = 1 " autocomplete after .
 let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
 let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-" automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=menuone,menu,longest,preview
+"}
 
-"注释插件
-Plugin 'The-NERD-Commenter'
+"{ plugin DoxygentToolkit and its configuration
 "由注释生成文档，并且能够快速生成函数标准注释
 Plugin 'DoxygenToolkit.vim'
 map fg : Dox<cr>
 let g:DoxygenToolkit_authorName="cylong"
-let g:DoxygenToolkit_licenseTag="My own license\<enter>"
+let g:DoxygenToolkit_licenseTag="GNU License\<enter>"
 let g:DoxygenToolkit_undocTag="DOXIGEN_SKIP_BLOCK"
 let g:DoxygenToolkit_briefTag_pre = "@brief\t"
 let g:DoxygenToolkit_paramTag_pre = "@param\t"
 let g:DoxygenToolkit_returnTag = "@return\t"
 let g:DoxygenToolkit_briefTag_funcName = "no"
 let g:DoxygenToolkit_maxFunctionProtoLines = 30
+"}
+
+"{ plugin The-NERD-tree and its configuration
 "文件管理器
 Plugin 'The-NERD-tree'
 " 让Tree把自己给装饰得多姿多彩漂亮点
@@ -158,6 +181,9 @@ let NERDTreeWinSize=31
 map <silent> <C-t>   <ESC>:NERDTree<CR>
 " 以打开NERDTree时的目录为工作目录
 let NERDTreeChDirMode=1
+"}
+
+"{ plugin Shougo/neocomplcache and its configuration
 "代码补全
 Plugin 'Shougo/neocomplcache'
 let g:neocomplcache_enable_at_startup = 1 
@@ -166,39 +192,6 @@ let g:neocomplcache_enable_smart_case = 1
 " Set minimum syntax keyword length.
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-set completeopt-=preview
-Plugin 'Shougo/neosnippet'
-let g:neosnippet#snippets_directory=$VIMFILES.'/bundle/snipmate-snippets/snippets'
-" Plugin key-mappings.
-imap <C-k> <Plug>(neocomplcache_snippets_force_expand)
-smap <C-k> <Plug>(neocomplcache_snippets_force_expand)
-imap <C-l> <Plug>(neocomplcache_snippets_force_jump)
-smap <C-l> <Plug>(neocomplcache_snippets_force_jump)
-"按特殊字符对其， 需要修改源码以支持中文字符 https://github.com/muzuiget/hacking-patches/blob/maste/tabula_cjk_width.patch
-"statuslines 增强
-Plugin 'scrooloose/vim-statline'
-"自动补全
-filetype plugin indent on
-set completeopt=longest,menu
-"自动补全命令时候使用菜单式匹配列表  
-set wildmenu
-autocmd FileType uby,euby set omnifunc=ubycomplete#Complete
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascipt set omnifunc=javasciptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType java set omnifunc=javacomplete#Complet
-"Pydiction
-let g:pydiction_location = '$vim\vim74\ftplugin\complete-dict'
-
-Plugin 'minibufexplorerpp'
-let g:miniBufExplMapWindowNavVim = 1 
-let g:miniBufExplMapWindowNavAows = 1 
-let g:miniBufExplMapCTabSwitchBufs = 1 
-let g:miniBufExplModSelTaget = 1
-
-"##########插件管理 结束#############
 
 " Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
@@ -207,23 +200,31 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 " AutoComplPop like behavior.
 let g:neocomplcache_enable_auto_select = 1
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-" 编辑模式进行光标移动
-inoremap <C-h> <left>
-inoremap <C-l> <right>
-inoremap <C-j> <C-o>gj
-inoremap <C-k> <C-o>gk
+set completeopt-=preview
+"}
 
-"mm : 规范行首空格<cr>去除多余字符<cr>删除空白行<cr>规范行数
-nmap mm :%s/\r//g<cr>
+"{ plugin Shougo/neosnippet and its configuration
+Plugin 'Shougo/neosnippet'
+let g:neosnippet#snippets_directory=$VIMFILES.'/bundle/snipmate-snippets/snippets'
+" Plugin key-mappings.
+imap <C-k> <Plug>(neocomplcache_snippets_force_expand)
+smap <C-k> <Plug>(neocomplcache_snippets_force_expand)
+imap <C-l> <Plug>(neocomplcache_snippets_force_jump)
+smap <C-l> <Plug>(neocomplcache_snippets_force_jump)
+"}
 
-"ff : 前后补全
-"vmap ff <Esc>`>i')?><Esc>`<i<?=$this->_('<Esc>
-vmap ff "zdi<?=$this->_('<C-R>z');?><ESC>
+"{ plugin minibufexplorerpp and its configuration
+Plugin 'minibufexplorerpp'
+let g:miniBufExplMapWindowNavVim = 1 
+let g:miniBufExplMapWindowNavAows = 1 
+let g:miniBufExplMapCTabSwitchBufs = 1 
+let g:miniBufExplModSelTaget = 1
+"}
 
-" {{{ Win平台下窗口全屏组件 gvimfullscreen.dll
+"##########插件管理 结束#############
+
+" { Win平台下窗口全屏组件 gvimfullscreen.dll
 " Alt + Enter 全屏切换
 " Shift + t 降低窗口透明度
 " Shift + y 加大窗口透明度
@@ -267,4 +268,4 @@ if has('gui_running') && has('gui_win32') && has('libcall')
     "默认设置透明
     autocmd GUIEnter * call libcallnr(g:MyVimLib, 'SetAlpha', g:VimAlpha)
 endif
-" }}}
+" }

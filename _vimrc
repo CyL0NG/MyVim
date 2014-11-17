@@ -102,7 +102,7 @@ Plugin 'tabular'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
-let g:session_autoload='yes'
+let g:session_autoload='no'
 let g:session_autosave='no'
 "实现C/C++语言自动补全
 Plugin 'OmniCppComplete'
@@ -176,7 +176,7 @@ imap <C-l> <Plug>(neocomplcache_snippets_force_jump)
 smap <C-l> <Plug>(neocomplcache_snippets_force_jump)
 "按特殊字符对其， 需要修改源码以支持中文字符 https://github.com/muzuiget/hacking-patches/blob/maste/tabula_cjk_width.patch
 "statuslines 增强
-Plugin 'scrooloose/vim-statline'
+Plugin 'scooloose/vim-statline'
 "自动补全
 filetype plugin indent on
 set completeopt=longest,menu
@@ -207,6 +207,8 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 " AutoComplPop like behavior.
 let g:neocomplcache_enable_auto_select = 1
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " 编辑模式进行光标移动
 inoremap <C-h> <left>
@@ -258,7 +260,11 @@ if has('gui_running') && has('gui_win32') && has('libcall')
     map <a-enter> <esc>:call ToggleFullScreen()<cr>
     "切换Vim是否在最前面显示
     nmap <s-r> <esc>:call SwitchVimTopMostMode()<cr>
-    " 默认设置透明
+    "增加Vim窗体的不透明度
+    nmap <s-t> <esc>:call SetAlpha(10)<cr>
+    "增加Vim窗体的透明度
+    nmap <s-y> <esc>:call SetAlpha(-10)<cr> 
+    "默认设置透明
     autocmd GUIEnter * call libcallnr(g:MyVimLib, 'SetAlpha', g:VimAlpha)
 endif
 " }}}

@@ -1,8 +1,8 @@
 MyVim
 =====
-##My Vim configuration for windows.
-###It uses vundle to manage plugins.
-###It has these plugins:
+My Vim configuration for windows.
+It uses vundle to manage plugins.
+It has these plugins:
 1. gmarik/vundle
 2. JavaScript-syntax
 3. jQuery

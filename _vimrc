@@ -117,12 +117,13 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mattn/emmet-vim'
 Plugin 'MatchTag'
 Plugin 'tabular'
-Plugin 'Lokaltog/vim-powerline'
 Plugin 'xolox/vim-misc'
 "注释插件
 Plugin 'The-NERD-Commenter'
 Plugin 'scrooloose/vim-statline'
-
+Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/syntastic'
+Plugin 'bling/vim-airline'
 "{plugin vim session and its configuration
 Plugin 'xolox/vim-session'
 let g:session_autoload='yes'

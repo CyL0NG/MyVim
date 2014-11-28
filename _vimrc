@@ -2,57 +2,57 @@ set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
-"颜色主题
-colorscheme molokai
+
+colorscheme molokai                     "颜色主题
+"使注释和特殊符号更好看
+highlight Comment    ctermfg=245 guifg=#8a8a8a
+highlight NonText    ctermfg=240 guifg=#585858
+highlight SpecialKey ctermfg=240 guifg=#585858
 "隐藏工具栏和菜单栏
 set guioptions-=m
 set guioptions-=T
+
 "设置工作目录为当前编辑文件的目录
 set bsdir=buffer
 set autochdir
+
 "编码设置
 set enc=utf-8
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
+
 "语言设置
 set langmenu=zh_CN.UTF-8
 language message zh_CN.UTF-8
-set guifont=YaHei\ Consolas\ Hybrid:h12
+
+set guifont=YaHei\ Consolas\ Hybrid:h12     "字体设置
 set helplang=cn
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
 "设置取消备份 禁止临时文件生成
 set nobackup
 set noswapfile
 "设置搜索时忽略大小写
 set ignorecase
 "搜索逐字符高亮
-set incsearch
-"搜素时高亮显示被找到的文本
-set hlsearch
-"设置Tab宽度
-set tabstop=4
-"设置自动对齐空格数
-set shiftwidth=4
-"设置按退格键时可以一次删除4个空格
-set softtabstop=4
-"设置按退格键时可以一次删除4个空格
-set smarttab
-"将Tab键自动转换成空格 真正需要Tab键时使用[Ctl + V + Tab]
-set expandtab
+set incsearch hlsearch smartcase
+
+set smarttab expandtab
 "自动缩进
-set noautoindent
-set cindent
-set smartindent
+set autoindent cindent smartindent shiftround
+set shiftwidth=4 softtabstop=4 tabstop=4
+
+set list listchars=eol:◣,tab:--,trail:.,
 "配置backspace键工作方式
 set backspace=indent,eol,start
-"显示行号
-set number
+"显示相对行号
+set nu rnu
 "设置在编辑过程中右下角显示光标的行列信息
 set ruler
 "突出现实当前行列
 set cursorline
 "在状态栏显示正在输入的命令
 set showcmd
+"显示当前模式
+set scrolloff=5
+set showmode
 "设置历史记录条数
 set history=1000
 "输入法设置
@@ -71,7 +71,7 @@ set clipboard+=unnamed
 "编辑vimc之后，重新加载
 autocmd! bufwritepost _vimrc source $VIM/_vimrc
 "设置匹配模式 类似当输入一个左括号时会匹配相应的那个右括号
-set showmatch
+set showmatch matchtime=1
 "开启语法高亮功能
 syntax enable
 syntax on

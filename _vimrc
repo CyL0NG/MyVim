@@ -3,91 +3,114 @@ source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
 
-colorscheme molokai                     "颜色主题
+colorscheme molokai                  "颜色主题
 "使注释和特殊符号更好看
 highlight Comment    ctermfg=245 guifg=#8a8a8a
 highlight NonText    ctermfg=240 guifg=#585858
 highlight SpecialKey ctermfg=240 guifg=#585858
-"隐藏工具栏和菜单栏
-set guioptions-=m
+
+set guioptions-=m                    "隐藏工具栏和菜单栏
 set guioptions-=T
 
-"设置工作目录为当前编辑文件的目录
-set bsdir=buffer
+set bsdir=buffer                     "设置工作目录为当前编辑文件的目录
 set autochdir
 
-"编码设置
-set enc=utf-8
+set enc=utf-8                        "编码设置
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 
-"语言设置
-set langmenu=zh_CN.UTF-8
+set autoread                         "文件修改之后自动载入
+set shortmess=atI                    "不显示援助
+
+set langmenu=zh_CN.UTF-8             "语言设置
 language message zh_CN.UTF-8
 
 set guifont=YaHei\ Consolas\ Hybrid:h12     "字体设置
 set helplang=cn
-"设置取消备份 禁止临时文件生成
-set nobackup
-set noswapfile
-"设置搜索时忽略大小写
-set ignorecase
-"搜索逐字符高亮
-set incsearch hlsearch smartcase
 
-set smarttab expandtab
-"自动缩进
+set nobackup                         "设置取消备份 禁止临时文件生成
+set noswapfile
+
+if has('persistent_undo')
+    set undolevels=1000
+    set undoreload=10000
+    set undofile
+    set undodir=$VIMRUNTIME/vimundo/
+endif
+
+set ignorecase                       "设置搜索时忽略大小写
+set incsearch hlsearch smartcase     "搜索逐字符高亮，智能搜索
+
+set smarttab expandtab               "智能tab
 set autoindent cindent smartindent shiftround
 set shiftwidth=4 softtabstop=4 tabstop=4
 
+set foldenable                       "代码折叠
+set foldmethod=indent
+set foldlevel=99
+
 set list listchars=eol:◣,tab:--,trail:.,
-"配置backspace键工作方式
-set backspace=indent,eol,start
-"显示相对行号
-set nu rnu
-"设置在编辑过程中右下角显示光标的行列信息
-set ruler
-"突出现实当前行列
-set cursorline
-"在状态栏显示正在输入的命令
-set showcmd
-"显示当前模式
+set backspace=indent,eol,start       "配置backspace键工作方式
+set nu rnu                           "显示相对行号
+autocmd InsertEnter * :set norelativenumber number      "插入模式显示绝对行号
+autocmd InsertLeave * :set relativenumber               "普通模式显示相对行号
+set ruler                            "设置在编辑过程中右下角显示光标的行列信息
+set cursorline                       "突出现实当前列
+set cursorcolumn                     "突出现实当前列
+set showcmd                          "在状态栏显示正在输入的命令
+set novisualbell                     "do not beep
+set noerrorbells                     "do not beep
 set scrolloff=5
-set showmode
-"设置历史记录条数
-set history=1000
-"输入法设置
-if has('multi_byte_ime')
+set showmode                         "显示当前模式
+set history=1000                     "设置历史记录条数
+set clipboard+=unnamed               "与Windows共享剪贴板
+autocmd! bufwritepost _vimrc source $VIM/_vimrc            "编辑vimc之后，重新加载
+set showmatch matchtime=1            "设置匹配模式 类似当输入一个左括号时会匹配相应的那个右括号
+syntax enable                        "开启语法高亮功能
+syntax on
+set t_Co=256                         "指定配色方案为256色
+set mouse=a                          "设置在Vim中可以使用鼠标 防止在Linux终端下无法拷贝
+language messages zh_CN.utf-8        "解决consle输出乱码
+
+let mapleader = ','
+let g:mapleader = ','
+
+map <leader>th :tabfirst<cr>
+map <leader>tl :tablast<cr>
+map <leader>tj :tabnext<cr>
+map <leader>tk :tabprev<cr>
+map <leader>tn :tabnext<cr>
+map <leader>tp :tabprev<cr>
+map <leader>te :tabedit<cr>
+map <leader>td :tabclose<cr>
+map <leader>tm :tabm<cr>
+
+nnoremap <C-t>      :tabnew<CR>
+inoremap <C-t>      <Esc>:tabnew<CR>
+
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+
+if has('multi_byte_ime')             "输入设置
     "未开启IME时光标背景色
     hi Cursor guifg=bg guibg=Orange gui=NONE
     "开启IME时光标背景色
     hi CursorIM guifg=NONE guibg=Skyblue gui=NONE
     " 关闭Vim的自动切换IME输入法(插入模式和检索模式)
     set iminsert=0 imsearch=0
-    " 插入模式输入法状态未被记录时，默认关闭IME
-    "inoemap <silent> <ESC> <ESC>:set iminset=0<C>
 endif
-"与Windows共享剪贴板
-set clipboard+=unnamed
-"编辑vimc之后，重新加载
-autocmd! bufwritepost _vimrc source $VIM/_vimrc
-"设置匹配模式 类似当输入一个左括号时会匹配相应的那个右括号
-set showmatch matchtime=1
-"开启语法高亮功能
-syntax enable
-syntax on
-"指定配色方案为256色
-set t_Co=256
-"设置在Vim中可以使用鼠标 防止在Linux终端下无法拷贝
-set mouse=a
-"解决consle输出乱码"
-language messages zh_CN.utf-8
-"针对不同的文件采用不同的缩进方式
-filetype indent on
-let g:pydiction_location='$vim/vim74/ftplugin/python_pydiction'
+
+filetype indent on                   "针对不同的文件采用不同的缩进方式
 filetype plugin indent on
 set completeopt=longest,menu
-"自动补全命令时候使用菜单式匹配列表  
-set wildmenu
+set wildmenu                         "自动补全命令时候使用菜单式匹配列表  
 autocmd FileType uby,euby set omnifunc=ubycomplete#Complete
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascipt set omnifunc=javasciptcomplete#CompleteJS
@@ -96,11 +119,22 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType java set omnifunc=javacomplete#Complet
 
-"mm : 规范行首空格<cr>去除多余字符<cr>删除空白行<cr>规范行数
-nmap mm :%s/\r//g<cr>
-"ff : 前后补全
-"vmap ff <Esc>`>i')?><Esc>`<i<?=$this->_('<Esc>
-vmap ff "zdi<?=$this->_('<C-R>z');?><ESC>
+"保存文件时删除多余空格
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd FileType c,cpp,java,php,javascript,jsp,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
+autocmd BufNewFile *.py exec ":call AutoSetFileHead()"
+function! AutoSetFileHead()
+    call setline(1, "\#!/usr/bin/python")
+    call append(1, "\# encoding: utf-8")
+endfunction
+"F10 run python
+nnoremap <buffer> <F10> :exec '!python' shellescape(@%, 1)<cr>
 "==============插件配置=============
 "允许插件
 filetype plugin on
@@ -109,47 +143,64 @@ filetype on
 set rtp+=$vim/vimfiles/bundle/vundle/
 call vundle#rc('$vim/vimfiles/bundle')
 
-"使用Vundle来管理Vundle
-Plugin 'gmarik/vundle'
-Plugin 'JavaScript-syntax'
-Plugin 'jQuery'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mattn/emmet-vim'
-Plugin 'MatchTag'
-Plugin 'tabular'
-Plugin 'xolox/vim-misc'
-"注释插件
-Plugin 'The-NERD-Commenter'
-Plugin 'scrooloose/vim-statline'
-Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/syntastic'
+Plugin 'gmarik/vundle'                  "使用Vundle来管理Vundle
+
 Plugin 'bling/vim-airline'
-"{plugin vim session and its configuration
-Plugin 'xolox/vim-session'
-let g:session_autoload='yes'
-let g:session_autosave='yes'
-"}
+Plugin 'scrooloose/vim-statline'
+"#############syntastic######################
+Plugin 'scrooloose/syntastic'
+let g:syntastic_error_symbol='>>'
+let g:syntastic_warning_symbol='>'
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_highlighting=0
+let g:syntastic_python_checks=['pyflakes']
+let g:syntastic_javascript_checks=['jsl', 'jshint']
+let g:synstatic_html_checkers=['tidy', 'jshint']
+highlight SyntasticErrorSign guifg=white guibg=black
 
-"{ plugin omnicppcomplete and its configuration
-"func: 实现C/C++语言自动补全
-Plugin 'OmniCppComplete'
-" build tags of your own project with CTRL+F12
-set tags=tags;
-" tags目录
-set tags+=$VIM/vimfiles/tags/cpp
-map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-"}
+"#############快速注释#####################
+Plugin 'scrooloose/nerdcommenter'
+let g:NERDSpaceDelims=1
 
-"{ plugin DoxygentToolkit and its configuration
-"由注释生成文档，并且能够快速生成函数标准注释
+"#############快速赋值语句对齐#############
+Plugin 'junegunn/vim-easy-align'
+vmap <Leader>a <Plug>(EasyAlign)
+nmap <Leader>a <Plug>(EasyAlign)
+
+"#############区块伸缩#####################
+Plugin 'terryma/vim-expand-region'
+
+"#############多光标选中编辑###############
+Plugin 'vim-multiple-cursors'
+
+"#############括号增强显示#################
+Plugin 'kien/rainbow_parentheses.vim'
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+let g:rbpt_max = 40
+let g:rbpt_loadcmd_toggle=0
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+"#############快速文档注释###############
 Plugin 'DoxygenToolkit.vim'
 map fg : Dox<cr>
 let g:DoxygenToolkit_authorName="cylong"
@@ -160,71 +211,64 @@ let g:DoxygenToolkit_paramTag_pre = "@param\t"
 let g:DoxygenToolkit_returnTag = "@return\t"
 let g:DoxygenToolkit_briefTag_funcName = "no"
 let g:DoxygenToolkit_maxFunctionProtoLines = 30
-"}
 
-"{ plugin The-NERD-tree and its configuration
-"文件管理器
-Plugin 'The-NERD-tree'
-" 让Tree把自己给装饰得多姿多彩漂亮点
+"#############快速导航###################
+Plugin 'scrooloose/nerdtree'
+map <leader>n :NERDTreeToggle<CR>
 let NERDChristmasTree=1
-" 控制当光标移动超过一定距离时，是否自动将焦点调整到屏中心
 let NERDTreeAutoCenter=1
-" 指定鼠标模式(1.双击打开 2.单目录双文件 3.单击打开)
-let NERDTreeMouseMode=2
-" 是否默认显示书签列表
 let NERDTreeShowBookmarks=1
-" 是否默认显示文件
 let NERDTreeShowFiles=1
-" 是否默认显示行号
 let NERDTreeShowLineNumbers=0
-" 窗口位置（'left' or 'right'）
 let NERDTreeWinPos='left'
-" 窗口宽度
 let NERDTreeWinSize=31
-"A-t : 打开NERDTree
-map <silent> <C-t>   <ESC>:NERDTree<CR>
-" 以打开NERDTree时的目录为工作目录
-let NERDTreeChDirMode=1
-"}
+let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.o$', '\.git$']
+let g:NERDTreeMapOpenSplit = 's'
+let g:NERDTreeMapOpenVSplit = 'v'
 
-"{ plugin Shougo/neocomplcache and its configuration
-"代码补全
+Plugin 'jistr/vim-nerdtree-tabs'
+let g:nerdtree_tabs_synchronize_view=0
+let g:nerdtree_tabs_synchronize_focus=0
+
+"#############python#####################
+Plugin 'kevinw/pyflakes-vim'
+let g:pyflakes_use_quickfix=0
+
+Plugin 'hdima/python-syntax'
+let python_highlight_all=1
+
+let g:pydiction_location='$vim/vim74/ftplugin/python_pydiction'
+
+"#############html/js/jquery/css#########
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'pangloss/vim-javascript'
+let g:html_indent_inctags = "html,body,head,tbody"
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
+
+Plugin 'nono/jquery.vim'
+Plugin 'mattn/emmet-vim'
+
+"#############自动补全###################
 Plugin 'Shougo/neocomplcache'
-let g:neocomplcache_enable_at_startup = 1 
-" Use smartcase.
+let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
-" Set minimum syntax keyword length.
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
-" Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
-let g:neocomplcache_keyword_patterns = {}
+    let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-" AutoComplPop like behavior.
 let g:neocomplcache_enable_auto_select = 1
-
 set completeopt-=preview
-"}
 
-"{ plugin Shougo/neosnippet and its configuration
-Plugin 'Shougo/neosnippet'
-let g:neosnippet#snippets_directory=$VIMFILES.'/bundle/snipmate-snippets/snippets'
-" Plugin key-mappings.
-imap <C-k> <Plug>(neocomplcache_snippets_force_expand)
-smap <C-k> <Plug>(neocomplcache_snippets_force_expand)
-imap <C-l> <Plug>(neocomplcache_snippets_force_jump)
-smap <C-l> <Plug>(neocomplcache_snippets_force_jump)
-"}
-
-"{ plugin minibufexplorerpp and its configuration
+"#############tab########################
 Plugin 'minibufexplorerpp'
-let g:miniBufExplMapWindowNavVim = 1 
-let g:miniBufExplMapWindowNavAows = 1 
-let g:miniBufExplMapCTabSwitchBufs = 1 
+let g:miniBufExpMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavAows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTaget = 1
-"}
 
 "##########插件管理 结束#############
 

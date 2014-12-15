@@ -2,15 +2,17 @@ set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
+let mapleader = ','
+let g:mapleader = ','
 
+set guioptions+=c
+set guioptions-=m
+set guioptions-=T
 colorscheme molokai                  "颜色主题
 "使注释和特殊符号更好看
 highlight Comment    ctermfg=245 guifg=#8a8a8a
 highlight NonText    ctermfg=240 guifg=#585858
 highlight SpecialKey ctermfg=240 guifg=#585858
-
-set guioptions-=m                    "隐藏工具栏和菜单栏
-set guioptions-=T
 
 set bsdir=buffer                     "设置工作目录为当前编辑文件的目录
 set autochdir
@@ -36,9 +38,6 @@ if has('persistent_undo')
     set undofile
     set undodir=$VIMRUNTIME/vimundo/
 endif
-
-set ignorecase                       "设置搜索时忽略大小写
-set incsearch hlsearch smartcase     "搜索逐字符高亮，智能搜索
 
 set smarttab expandtab               "智能tab
 set autoindent cindent smartindent shiftround
@@ -70,9 +69,6 @@ syntax on
 set t_Co=256                         "指定配色方案为256色
 set mouse=a                          "设置在Vim中可以使用鼠标 防止在Linux终端下无法拷贝
 language messages zh_CN.utf-8        "解决consle输出乱码
-
-let mapleader = ','
-let g:mapleader = ','
 
 map <leader>th :tabfirst<cr>
 map <leader>tl :tablast<cr>
@@ -147,31 +143,13 @@ Plugin 'gmarik/vundle'                  "使用Vundle来管理Vundle
 
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/vim-statline'
-"#############syntastic######################
-Plugin 'scrooloose/syntastic'
-let g:syntastic_error_symbol='>>'
-let g:syntastic_warning_symbol='>'
-let g:syntastic_check_on_open=1
-let g:syntastic_enable_highlighting=0
-let g:syntastic_python_checks=['pyflakes']
-let g:syntastic_javascript_checks=['jsl', 'jshint']
-let g:synstatic_html_checkers=['tidy', 'jshint']
-highlight SyntasticErrorSign guifg=white guibg=black
 
 "#############快速注释#####################
 Plugin 'scrooloose/nerdcommenter'
 let g:NERDSpaceDelims=1
 
-"#############快速赋值语句对齐#############
-Plugin 'junegunn/vim-easy-align'
-vmap <Leader>a <Plug>(EasyAlign)
-nmap <Leader>a <Plug>(EasyAlign)
-
 "#############区块伸缩#####################
 Plugin 'terryma/vim-expand-region'
-
-"#############多光标选中编辑###############
-Plugin 'vim-multiple-cursors'
 
 "#############括号增强显示#################
 Plugin 'kien/rainbow_parentheses.vim'
@@ -226,16 +204,7 @@ let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.o$', '\.git$']
 let g:NERDTreeMapOpenSplit = 's'
 let g:NERDTreeMapOpenVSplit = 'v'
 
-Plugin 'jistr/vim-nerdtree-tabs'
-let g:nerdtree_tabs_synchronize_view=0
-let g:nerdtree_tabs_synchronize_focus=0
-
 "#############python#####################
-Plugin 'kevinw/pyflakes-vim'
-let g:pyflakes_use_quickfix=0
-
-Plugin 'hdima/python-syntax'
-let python_highlight_all=1
 
 let g:pydiction_location='$vim/vim74/ftplugin/python_pydiction'
 
@@ -263,12 +232,46 @@ let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 let g:neocomplcache_enable_auto_select = 1
 set completeopt-=preview
 
-"#############tab########################
-Plugin 'minibufexplorerpp'
-let g:miniBufExpMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavAows = 1
+"#############tagbar#####################
+Plugin 'majutsushi/tagbar'
+map <Leader>tbt :TagbarToggle<cr>
+
+"#############ctrlp######################
+Plugin 'kien/ctrlp.vim'
+let g:ctrlp_map = '<leader>ff'
+let g:ctrlp_cmd = 'CtrlP'
+map <leader>fp :CtrlPMRU<cr>
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_match_window_bottom = 1
+let g:ctrlp_max_height = 15
+let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_mruf_max = 500
+let g:ctrlp_follow_symlinks = 1
+
+"########################################
+Plugin 'fholgado/minibufexpl.vim'
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTaget = 1
+let g:miniBufExplModSelTarget = 1
+let g:miniBufExplForceSyntaxEnable = 1
+let g:miniBufExplorerMoreThanOne = 2
+let g:miniBufExplCycleArround = 1
+map <leader>tbn :MBEbn<cr>
+map <leader>tbp :MBEbp<cr>
+
+"#######################################
+Plugin 'Lokaltog/vim-easymotion'
+nmap s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotion-t2)
+map / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map n <Plug>(easymotion-next)
+map N <Plug>(easymotion-prev)
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_do_shade = 1
+"#######################################
+Plugin 'tpope/vim-surround'
 
 "##########插件管理 结束#############
 

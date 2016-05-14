@@ -45,7 +45,6 @@ set foldenable                       "代码折叠
 set foldmethod=indent
 set foldlevel=99
 
-set list listchars=eol:◣,tab:--,trail:.,
 set backspace=indent,eol,start       "配置backspace键工作方式
 set nu rnu                           "显示相对行号
 autocmd InsertEnter * :set norelativenumber number      "插入模式显示绝对行号
@@ -137,7 +136,8 @@ filetype on
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/vundle'                  "使用Vundle来管理Vundle
+"
+Plugin 'VundleVim/Vundle.vim'                  "使用Vundle来管理Vundle
 
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/vim-statline'

@@ -6,7 +6,7 @@ It uses **vundle** to manage plugins.
 
 It has these plugins:
 
-1. gmarik/vundle
+1. VundleVim/Vundle.vim
 2. bling/vim-airline
 3. scrooloose/vim-statline
 4. scrooloose/syntastic
@@ -26,6 +26,11 @@ It has these plugins:
 18. mattn/emmet-vim
 19. Shougo/neocomplcache
 20. minibufexplorerpp
+
+Fisrt: You should install VundleVim use the following command:
+```
+$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+```
 
 You can run **PluginInstall** to install these plugins.
 

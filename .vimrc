@@ -112,15 +112,6 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType java set omnifunc=javacomplete#Complet
 
-"保存文件时删除多余空格
-fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-autocmd FileType c,cpp,java,php,javascript,jsp,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-
 autocmd BufNewFile *.py exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
     call setline(1, "\#!/usr/bin/python")
@@ -146,6 +137,9 @@ Plugin 'scrooloose/vim-statline'
 Plugin 'scrooloose/nerdcommenter'
 let g:NERDSpaceDelims=1
 
+"#############syntastic####################
+Plugin 'scrooloose/syntastic'
+"
 "#############区块伸缩#####################
 Plugin 'terryma/vim-expand-region'
 
@@ -216,8 +210,11 @@ let g:html_indent_style1 = "inc"
 Plugin 'nono/jquery.vim'
 Plugin 'mattn/emmet-vim'
 
+"###############json#####################
+Plugin 'elzr/vim-json'
+
 "#############自动补全###################
-Plugin 'Shougo/neocomplcache'
+Plugin 'Shougo/neocomplcache.vim'
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_min_syntax_length = 3
